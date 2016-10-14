@@ -67,7 +67,6 @@ endif
 if g:islinux
     set hlsearch        "高亮搜索
     set incsearch       "在输入要搜索的文字时，实时匹配
-
     " Uncomment the following to have Vim jump to the last position when
     " reopening a file
     if has("autocmd")
@@ -129,6 +128,8 @@ endif
 Bundle 'gmarik/vundle'
 
 " 以下为要安装或更新的插件，不同仓库都有（具体书写规范请参考帮助）
+Bundle 'DoxygenToolkit.vim'
+Bundle 'tabular'
 Bundle 'a.vim'
 Bundle 'Align'
 Bundle 'jiangmiao/auto-pairs'
@@ -182,14 +183,14 @@ endif
 " -----------------------------------------------------------------------------
 filetype on                                           "启用文件类型侦测
 filetype plugin on                                    "针对不同的文件类型加载对应的插件
-filetype plugin indent on                             "启用缩进
+"filetype plugin indent on                             "启用缩进
 set smartindent                                       "启用智能对齐方式
 set expandtab                                         "将Tab键转换为空格
 set tabstop=4                                         "设置Tab键的宽度，可以更改，如：宽度为2
 set shiftwidth=4                                      "换行时自动缩进宽度，可更改（宽度同tabstop）
 set smarttab                                          "指定按一次backspace就删除shiftwidth宽度
 set foldenable                                        "启用折叠
-set foldmethod=indent                                 "indent 折叠方式
+"set foldmethod=indent                                 "indent 折叠方式
 " set foldmethod=marker                                "marker 折叠方式
 
 " 常规模式下用空格键来开关光标行所在折叠（注：zR 展开所有折叠，zM 关闭所有折叠）
@@ -203,7 +204,7 @@ nmap cS :%s/\s\+$//g<CR>:noh<CR>
 
 " 常规模式下输入 cM 清除行尾 ^M 符号
 nmap cM :%s/\r$//g<CR>:noh<CR>
-
+        
 set ignorecase                                        "搜索模式里忽略大小写
 set smartcase                                         "如果搜索模式包含大写字符，不使用 'ignorecase' 选项，只有在输入搜索模式并且打开 'ignorecase' 选项时才会使用
 " set noincsearch                                       "在输入要搜索的文字时，取消实时匹配
@@ -245,7 +246,10 @@ endif
 if g:isGUI
     colorscheme Tomorrow-Night-Eighties               "Gvim配色方案
 else
-    colorscheme Tomorrow-Night-Eighties               "终端配色方案
+   " colorscheme Tomorrow-Night-Eighties               "终端配色方案
+   " colorscheme molokai               "终端配色方案
+    colorscheme Tomorrow-Night               "终端配色方案
+    
 endif
 
 " 显示/隐藏菜单栏、工具栏、滚动条，可用 Ctrl + F11 切换
@@ -819,7 +823,7 @@ nmap tl :TagbarClose<CR>:Tlist<CR>
 let Tlist_Show_One_File=1                   "只显示当前文件的tags
 " let Tlist_Enable_Fold_Column=0              "使taglist插件不显示左边的折叠行
 let Tlist_Exit_OnlyWindow=1                 "如果Taglist窗口是最后一个窗口则退出Vim
-let Tlist_File_Fold_Auto_Close=1            "自动折叠
+"let Tlist_File_Fold_Auto_Close=1            "自动折叠
 let Tlist_WinWidth=30                       "设置窗口宽度
 let Tlist_Use_Right_Window=1                "在右侧窗口中显示
 
@@ -828,6 +832,29 @@ let Tlist_Use_Right_Window=1                "在右侧窗口中显示
 " -----------------------------------------------------------------------------
 " 用于文本文件生成标签与与语法高亮（调用TagList插件生成标签，如果可以）
 au BufRead,BufNewFile *.txt setlocal ft=txt
+
+" -----------------------------------------------------------------------------
+"  < DoxygenToolKit 插件配置 >
+" -----------------------------------------------------------------------------
+" 用于文本文件生成注释
+let g:DoxygenToolkit_briefTag_funcName="yes"
+
+"for c++ style"
+"let g:DoxygenToolkit_commentType = "php"
+"let g:DoxygenToolkit_briefTag_pre = "@brief"
+"let g:DoxygenToolkit_templateParamTag_pre = "@tparam"
+"let g:DoxygenToolkit_paramTag_pre = "@param"
+"let g:DoxygenToolkit_returnTag = "@return"
+"let g:DoxygenToolkit_throwTag_pre = "@throw" "@exception is also valid"
+"let g:DoxygenToolkit_fileTag = "@file"
+"let g:DoxygenToolkit_dateTag = "@date"
+"let g:DoxygenToolkit_authorTag = "@author"
+"let g:DoxygenToolkit_versionTag = "@version"
+"let g:DoxygenToolkit_blockTag = "@name"
+"let g:DoxygenToolkit_classTag = "@class"
+"let g:DoxygenToolkit_authorName = "陈家辉，455803034@qq.com"
+"let g:doxygen_enhanced_color = 1
+"let g:doxygen_enhanced_syntax = 1
 
 " -----------------------------------------------------------------------------
 "  < ZoomWin 插件配置 >
@@ -957,4 +984,4 @@ au BufRead,BufNewFile,BufEnter * cd %:p:h
 " 秒内，而<Leader>cs是先按"\"键再按"c"又再按"s"键；如要修改"<leader>"键，可以把
 " 下面的设置取消注释，并修改双引号中的键为你想要的，如修改为逗号键。
 
-" let mapleader = ","
+ let mapleader = ","
